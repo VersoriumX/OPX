@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt'
 import type { NextFunction, Request, Response, Router } from 'express'
 import { getIronSession } from 'iron-session'
 import * as trpcPlayground from 'trpc-playground/handlers/express'
+import escape from 'escape-html'
 
 import { ensureAdmin } from '@/auth'
 
@@ -77,8 +78,9 @@ export class AdminApi extends Route {
 
   private getLogin(): AdminHandler {
     return (req: Request, res: Response) => {
+      const sanitizedQueryParams = escape(this.getRequestQueryParams(req))
       res.send(
-        loginForm.replace('{queryParams}', this.getRequestQueryParams(req)),
+        loginForm.replace('{queryParams}', sanitizedQueryParams),
       )
     }
   }
