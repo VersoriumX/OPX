@@ -2,6 +2,7 @@ import 'dotenv/config'
 
 import type { Hex } from 'viem'
 import { z } from 'zod'
+import _ from 'lodash'
 
 const getCommaSeparatedValues = (type: string) => {
   try {
@@ -96,10 +97,10 @@ export const envVars = envVarSchema.parse(
         DEPLOYMENT_ENV: 'development',
         DEV_CORS_ALLOWLIST_REG_EXP: getCommaSeparatedValues(
           'DEV_CORS_ALLOWLIST_REG_EXP',
-        ).map((regExp) => new RegExp(regExp)),
+        ).map((regExp) => new RegExp(_.escapeRegExp(regExp))),
         CORS_ALLOWLIST_REG_EXP: getCommaSeparatedValues(
           'CORS_ALLOWLIST_REG_EXP',
-        ).map((regExp) => new RegExp(regExp)),
+        ).map((regExp) => new RegExp(_.escapeRegExp(regExp))),
         IRON_SESSION_SECRET: 'UNKNOWN_IRON_SESSION_PASSWORD_32',
         DB_USER: 'dapp-console-api@oplabs-local-web.iam',
         MIGRATE_DB_USER: 'postgres',
