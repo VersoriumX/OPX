@@ -43,6 +43,6 @@
   "pending": [],
   "returns": {},
   "timestamp": 1710907594,
-  "chain": 999999999,
+  "chain": 0x[a-fA-F0-9]+$,
   "commit": "340f17c"
 }
